@@ -66,10 +66,12 @@ class CreatureService {
 
   public updatePlayer(id: number, newValue: Partial<Creature>) {
     this.playersMap[id] = { ...this.playersMap[id], ...newValue }
+    turnService.updateItem(this.playersMap[id])
   }
 
   public updateEnemy(id: number, newValue: Partial<Creature>) {
     this.enemyMap[id] = { ...this.enemyMap[id], ...newValue }
+    turnService.updateItem(this.enemyMap[id])
   }
 }
 

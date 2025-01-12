@@ -69,6 +69,14 @@ class TurnService {
     this.sort()
   }
 
+  public updateItem(item: Creature) {
+    const entity = this.initiativeList.find(({ creatureId }) => creatureId === item.id)
+    if (item) {
+      entity.modify = item.DEX
+      entity.name = item.name
+    }
+  }
+
   public deleteInitiativeItem(id: number) {
     this.initiativeList = this.initiativeList.filter((item) => item.creatureId !== id)
     this.turn = 0

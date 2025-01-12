@@ -1,4 +1,4 @@
-import { FC, useRef } from 'react'
+import { FC } from 'react'
 import { observer } from 'mobx-react';
 import { TurnItem } from './TurnItem.tsx'
 import { ScrollList, Wrapper } from './elements.ts'

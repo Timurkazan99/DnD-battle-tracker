@@ -4,11 +4,13 @@ import { StatBlock } from './StatBlock.tsx'
 import { creatureService } from '../../entities/creature/creatureService.ts'
 import { PramBlock } from './ParamBlock.tsx'
 import { HealthList } from './HealthList.tsx'
-import { Input, Button, Card } from '../../shared/ui'
+import { Input, Card } from '../../shared/ui'
 import { turnService } from '../../entities/turn/turnService.ts'
 import { observer } from 'mobx-react'
 import { CardExtra } from './CardExtra.tsx'
 import { Space } from 'antd'
+
+// TODO add skill list for monsters
 
 const _CreatureCard: FC<Creature> = (creature) => {
   const [disable, setDisable] = useState(true)
