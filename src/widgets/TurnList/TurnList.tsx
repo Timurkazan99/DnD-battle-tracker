@@ -14,7 +14,7 @@ const _TurnList: FC = () => {
         <ScrollList>
           {
             turnService.initiativeList
-            .map((item) => <TurnItem {...item} />)
+            .map((item) => <TurnItem key={item.creatureId} {...item} />)
           }
         </ScrollList>
       </Wrapper>

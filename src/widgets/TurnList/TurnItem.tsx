@@ -1,26 +1,34 @@
-import { FC, RefObject, useEffect, useRef } from 'react'
+import { FC, RefObject, useEffect, useRef, useState } from 'react'
+import { ThunderboltOutlined } from '@ant-design/icons'
+import { observer } from 'mobx-react'
+import { useDebounce } from "@uidotdev/usehooks";
 import { InitiativeItem } from '../../entities/turn/type.ts'
 import { turnService } from '../../entities/turn/turnService.ts'
-import { observer } from 'mobx-react'
 import { Button, Input } from '../../shared/ui'
 import { ItemWrapper } from './elements.ts'
-import { ThunderboltOutlined } from '@ant-design/icons'
 
 
 
-const _TurnItem: FC<InitiativeItem> = ({ creatureId, name, value, containerRef}) => {
+const BaseTurnItem: FC<InitiativeItem> = ({ creatureId, name, value}) => {
   const itemRef = useRef<HTMLDivElement>()
 
+  const [initiative, setInitiative] = useState(value)
+  const debouncedInitiative = useDebounce(initiative, 1000);
+
   useEffect(() => {
-    if(turnService.activeCreature === creatureId) {
-      if(itemRef.current) {
-        console.log(itemRef?.current)
-        itemRef?.current?.scrollIntoView({
-          behavior: 'smooth',
-        })
-      }
+    turnService.setInitiative(creatureId, debouncedInitiative)
+  }, [creatureId, debouncedInitiative])
+
+  console.log(value)
+
+  useEffect(() => {
+    if (turnService.activeCreature === creatureId && itemRef.current) {
+      console.log(itemRef?.current)
+      itemRef?.current?.scrollIntoView({
+        behavior: 'smooth',
+      })
     }
-  }, [turnService.activeCreature])
+  }, [creatureId])
 
   return (
     <div style={{ width: '100%' }} ref={itemRef}>
@@ -39,12 +47,14 @@ const _TurnItem: FC<InitiativeItem> = ({ creatureId, name, value, containerRef})
           style={{ width: '42px' }}
           size="small"
           pattern="[0-9]*"
-          value={value}
-          onChange={(e) => turnService.setInitiative(creatureId, Number(e.target.value))}
+          value={initiative}
+          onChange={(e) => {
+            setInitiative(Number(e.target.value))
+          }}
         />
       </ItemWrapper>
     </div>
   )
 }
 
-export const TurnItem = observer(_TurnItem)
+export const TurnItem = observer(BaseTurnItem)
