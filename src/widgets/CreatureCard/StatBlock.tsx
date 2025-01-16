@@ -1,21 +1,22 @@
 import { FC } from 'react'
 import { Space, Tooltip } from 'antd'
 import { observer } from 'mobx-react'
-import { Creature } from '../../entities/creature/type.ts'
+import { Creature, UpdateCreature } from '../../entities/creature/type.ts'
 import { creatureService } from '../../entities/creature/creatureService.ts'
 import { Input } from '../../shared/ui'
 
 interface Props extends Creature {
   disable: boolean
+  onChange: UpdateCreature
 }
 
-export const _StatBlock: FC<Props> = ({ type, id, disable, ...creature }) => (
+export const _StatBlock: FC<Props> = ({ onChange, id, disable, ...creature }) => (
   <Space>
     <Tooltip title="Сила">
       <Input
         size="small"
         onChange={(e) => {
-          creatureService[type === 'monster' ? 'updateEnemy' : 'updatePlayer'](id, { STR: Number(e.target.value) })
+          onChange(id, { STR: Number(e.target.value) })
         }}
         value={creature.STR}
         disabled={disable}
@@ -25,7 +26,7 @@ export const _StatBlock: FC<Props> = ({ type, id, disable, ...creature }) => (
       <Input
         size="small"
         onChange={(e) => {
-          creatureService[type === 'monster' ? 'updateEnemy' : 'updatePlayer'](id, { DEX: Number(e.target.value) })
+          onChange(id, { DEX: Number(e.target.value) })
         }}
         value={creature.DEX}
         disabled={disable}
@@ -35,7 +36,7 @@ export const _StatBlock: FC<Props> = ({ type, id, disable, ...creature }) => (
       <Input
         size="small"
         onChange={(e) => {
-          creatureService[type === 'monster' ? 'updateEnemy' : 'updatePlayer'](id, { CON: Number(e.target.value) })
+          onChange(id, { CON: Number(e.target.value) })
         }}
         value={creature.CON}
         disabled={disable}
@@ -45,7 +46,7 @@ export const _StatBlock: FC<Props> = ({ type, id, disable, ...creature }) => (
       <Input
         size="small"
         onChange={(e) => {
-          creatureService[type === 'monster' ? 'updateEnemy' : 'updatePlayer'](id, { INT: Number(e.target.value) })
+          onChange(id, { INT: Number(e.target.value) })
         }}
         value={creature.INT}
         disabled={disable}
@@ -55,7 +56,7 @@ export const _StatBlock: FC<Props> = ({ type, id, disable, ...creature }) => (
       <Input
         size="small"
         onChange={(e) => {
-          creatureService[type === 'monster' ? 'updateEnemy' : 'updatePlayer'](id, { WIS: Number(e.target.value) })
+          onChange(id, { WIS: Number(e.target.value) })
         }}
         value={creature.WIS}
         disabled={disable}
@@ -65,7 +66,7 @@ export const _StatBlock: FC<Props> = ({ type, id, disable, ...creature }) => (
       <Input
         size="small"
         onChange={(e) => {
-          creatureService[type === 'monster' ? 'updateEnemy' : 'updatePlayer'](id, { CHA: Number(e.target.value) })
+          onChange(id, { CHA: Number(e.target.value) })
         }}
         value={creature.CHA}
         disabled={disable}

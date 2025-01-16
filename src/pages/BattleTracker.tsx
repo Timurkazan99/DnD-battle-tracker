@@ -1,10 +1,10 @@
 import { FC } from 'react'
 import { TurnList } from '../widgets/TurnList'
-import { creatureService } from '../entities/creature/creatureService.ts'
-import { CreatureList } from '../widgets/CreatureList'
 import styled from 'styled-components'
 import { ThrowList } from '../widgets/ThrowList/ThrowList.tsx'
 import { ColorMap } from '../shared/utils/ColorMap.ts'
+import { PlayerList } from '../features/PlayerList/PlayerList.tsx'
+import { EnemyList } from '../features/EnemyList/EnemyList.tsx'
 
 const Wrapper = styled.div`
     display: flex;
@@ -28,19 +28,8 @@ export const BattleTracker: FC = () => {
     <Wrapper>
       <TurnList />
       <CreatureWrapper>
-        <CreatureList
-          creatureMap={creatureService.playersMap}
-          title="Игроки"
-          onAdd={() => creatureService.addPlayer()}
-          type="player"
-        />
-        <CreatureList
-          style={{ marginTop: '16px' }}
-          creatureMap={creatureService.enemyMap}
-          title="Враги"
-          type="monster"
-          onAdd={() => creatureService.addEnemy()}
-        />
+        <PlayerList />
+        <EnemyList style={{ marginTop: '16px' }} />
       </CreatureWrapper>
       <ThrowList />
     </Wrapper>

@@ -13,3 +13,5 @@ export interface Creature {
 }
 
 export type CreatureMap = Record<Creature['id'], Creature>
+
+export type UpdateCreature = (id: Creature['id'], entity: Partial<Creature>) => void

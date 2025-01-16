@@ -1,21 +1,21 @@
 import { FC } from 'react'
 import { Space, Tooltip } from 'antd'
 import { observer } from 'mobx-react'
-import { Creature } from '../../entities/creature/type.ts'
-import { creatureService } from '../../entities/creature/creatureService.ts'
+import { Creature, UpdateCreature } from '../../entities/creature/type.ts'
 import { Input } from '../../shared/ui'
 
 interface Props extends Creature {
   disable: boolean
+  onChange: UpdateCreature
 }
 
-export const _PramBlock: FC<Props> = ({ type, id, disable, ...creature }) => (
+export const _PramBlock: FC<Props> = ({  onChange, id, disable, ...creature }) => (
   <Space style={{ marginBottom: '4px' }}>
     <Tooltip title="Класс брони">
       <Input
         size="small"
         onChange={(e) => {
-          creatureService[type === 'monster' ? 'updateEnemy' : 'updatePlayer'](id, { AC: Number(e.target.value) })
+          onChange(id, { AC: Number(e.target.value) })
         }}
         value={creature.AC}
         disabled={disable}
@@ -25,7 +25,7 @@ export const _PramBlock: FC<Props> = ({ type, id, disable, ...creature }) => (
       <Input
         size="small"
         onChange={(e) => {
-          creatureService[type === 'monster' ? 'updateEnemy' : 'updatePlayer'](id, { speed: Number(e.target.value) })
+          onChange(id, { speed: Number(e.target.value) })
         }}
         value={creature.speed}
         disabled={disable}

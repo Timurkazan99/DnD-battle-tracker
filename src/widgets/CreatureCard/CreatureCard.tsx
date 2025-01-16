@@ -1,19 +1,25 @@
-import { FC, useEffect, useRef, useState } from 'react'
-import { Creature } from '../../entities/creature/type.ts'
-import { StatBlock } from './StatBlock.tsx'
-import { creatureService } from '../../entities/creature/creatureService.ts'
-import { PramBlock } from './ParamBlock.tsx'
-import { HealthList } from './HealthList.tsx'
+import {
+  Dispatch,
+  FC,
+  PropsWithChildren,
+  useEffect,
+  useRef,
+} from 'react'
+import { Creature, UpdateCreature } from '../../entities/creature/type.ts'
 import { Input, Card } from '../../shared/ui'
 import { turnService } from '../../entities/turn/turnService.ts'
 import { observer } from 'mobx-react'
 import { CardExtra } from './CardExtra.tsx'
 import { Space } from 'antd'
 
-// TODO add skill list for monsters
+interface Props {
+  creature: Creature
+  onChange: UpdateCreature
+  disable: boolean
+  setDisable: Dispatch<boolean>
+}
 
-const _CreatureCard: FC<Creature> = (creature) => {
-  const [disable, setDisable] = useState(true)
+const BaseCreatureCard: FC<PropsWithChildren<Props>> = ({children, onChange, creature, disable, setDisable}) => {
   const cardRef = useRef<HTMLDivElement>()
   const id = `${creature.id}-card`
 
@@ -40,9 +46,7 @@ const _CreatureCard: FC<Creature> = (creature) => {
         {disable ? creature.name : (
           <Input
             onChange={(e) => {
-              creatureService[creature.type === 'monster'
-                ? 'updateEnemy'
-                : 'updatePlayer'](creature.id, { name: e.target.value })
+              onChange(creature.id, { name: e.target.value })
             }}
             value={creature.name}
             disabled={disable}
@@ -57,15 +61,9 @@ const _CreatureCard: FC<Creature> = (creature) => {
       </Space.Compact>}
       active={creature.id === turnService.activeCreature}
     >
-      <PramBlock {...creature} disable={disable} />
-      <StatBlock {...creature} disable={disable} />
-      {
-        creature.type === 'monster' && (
-          <HealthList name={creature.name} />
-        )
-      }
+      {children}
     </Card>
   )
 }
 
-export const CreatureCard = observer(_CreatureCard)
+export const CreatureCard = observer(BaseCreatureCard)
