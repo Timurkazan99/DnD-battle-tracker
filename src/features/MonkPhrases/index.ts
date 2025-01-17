@@ -1,0 +1,1 @@
+export { MonkPhrases } from './MonkPhrases.tsx'

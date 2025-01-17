@@ -7,8 +7,6 @@ import { turnService } from '../../entities/turn/turnService.ts'
 import { Button, Input } from '../../shared/ui'
 import { ItemWrapper } from './elements.ts'
 
-
-
 const BaseTurnItem: FC<InitiativeItem> = ({ creatureId, name, value}) => {
   const itemRef = useRef<HTMLDivElement>()
 
