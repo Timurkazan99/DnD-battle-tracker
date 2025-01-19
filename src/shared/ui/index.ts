@@ -1,4 +1,5 @@
 export { Input } from './Input.ts'
 export { Button } from './Button.ts'
 export { Card } from './Card.ts'
+export { TextArea } from './TextArea.tsx'
 export * from './Typography.ts'

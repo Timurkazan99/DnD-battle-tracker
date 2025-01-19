@@ -1,9 +1,9 @@
 import styled from 'styled-components'
-import { Input as AntdInput } from 'antd'
+import { Input } from './Input.ts'
 import { ColorMap } from '../utils/ColorMap.ts'
 
-export const Input = styled(AntdInput)`
-    background: none;
+export const TextArea = styled(Input.TextArea)`
+  background: none;
     color: ${ColorMap.text};
     border-color: ${ColorMap.text}!important;
     font-family: "Comfortaa", sans-serif;
