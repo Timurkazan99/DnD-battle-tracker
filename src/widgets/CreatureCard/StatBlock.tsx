@@ -16,7 +16,7 @@ export const _StatBlock: FC<Props> = ({ onChange, id, disable, ...creature }) =>
       <Input
         size="small"
         onChange={(e) => {
-          onChange(id, { STR: Number(e.target.value) })
+          onChange(id, { STR: e.target.value })
         }}
         value={creature.STR}
         disabled={disable}
@@ -26,7 +26,7 @@ export const _StatBlock: FC<Props> = ({ onChange, id, disable, ...creature }) =>
       <Input
         size="small"
         onChange={(e) => {
-          onChange(id, { DEX: Number(e.target.value) })
+          onChange(id, { DEX: e.target.value })
         }}
         value={creature.DEX}
         disabled={disable}
@@ -36,7 +36,7 @@ export const _StatBlock: FC<Props> = ({ onChange, id, disable, ...creature }) =>
       <Input
         size="small"
         onChange={(e) => {
-          onChange(id, { CON: Number(e.target.value) })
+          onChange(id, { CON: e.target.value })
         }}
         value={creature.CON}
         disabled={disable}
@@ -46,7 +46,7 @@ export const _StatBlock: FC<Props> = ({ onChange, id, disable, ...creature }) =>
       <Input
         size="small"
         onChange={(e) => {
-          onChange(id, { INT: Number(e.target.value) })
+          onChange(id, { INT: e.target.value })
         }}
         value={creature.INT}
         disabled={disable}
@@ -56,7 +56,7 @@ export const _StatBlock: FC<Props> = ({ onChange, id, disable, ...creature }) =>
       <Input
         size="small"
         onChange={(e) => {
-          onChange(id, { WIS: Number(e.target.value) })
+          onChange(id, { WIS: e.target.value })
         }}
         value={creature.WIS}
         disabled={disable}
@@ -66,7 +66,7 @@ export const _StatBlock: FC<Props> = ({ onChange, id, disable, ...creature }) =>
       <Input
         size="small"
         onChange={(e) => {
-          onChange(id, { CHA: Number(e.target.value) })
+          onChange(id, { CHA: e.target.value })
         }}
         value={creature.CHA}
         disabled={disable}

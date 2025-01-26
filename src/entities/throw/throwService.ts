@@ -39,7 +39,7 @@ class ThrowService {
   private getThrowWithType (count: number, dice: number, modify: number, typeThrow: TypeThrow ): ThrowItem {
     let throwValue: ThrowItem;
     if(typeThrow === 'common') {
-      throwValue = throwDice(count, dice, modify)
+      throwValue = throwDice(count, dice, Number(modify))
     }
 
     if(typeThrow === 'advantage') {

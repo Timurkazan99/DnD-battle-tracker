@@ -9,5 +9,6 @@ export const defCreature: Omit<Creature, 'id' | 'type' | 'name'> = {
   CHA: 0,
   AC: 10,
   speed: 30,
-  status: Status.LIVE
+  status: Status.LIVE,
+  hitFormula: '1d10'
 }

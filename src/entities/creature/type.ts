@@ -16,6 +16,7 @@ export interface Creature {
   speed: number,
   type: 'monster' | 'player'
   status: Status
+  hitFormula: string
 }
 
 export type CreatureMap = Record<Creature['id'], Creature>

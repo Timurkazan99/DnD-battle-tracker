@@ -32,7 +32,7 @@ const BaseEnemyCard: FC<Props> = ({ onChange, onDeleteCreature,  ...creature}) =
         <div style={{ flexBasis: '50%' }}>
           <PramBlock {...creature} disable={disable} onChange={onChange}/>
           <StatBlock {...creature} disable={disable} onChange={onChange} />
-          <HealthList name={creature.name}/>
+          <HealthList name={creature.name} hitFormula={creature.hitFormula}/>
         </div>
         <SkillList/>
       </Wrapper>

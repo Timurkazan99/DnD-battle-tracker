@@ -31,10 +31,14 @@ export const _PramBlock: FC<Props> = ({  onChange, id, disable, ...creature }) =
         disabled={disable}
       />
     </Tooltip>
-    <Tooltip title="Пассивная внимательность">
+    <Tooltip title="Хиты">
       <Input
         size="small"
         disabled={disable}
+        onChange={(e) => {
+          onChange(id, { hitFormula: e.target.value })
+        }}
+        value={creature.hitFormula}
       />
     </Tooltip>
   </Space>
