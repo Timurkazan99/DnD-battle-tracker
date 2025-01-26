@@ -6,6 +6,7 @@ import {
 import { Creature, CreatureMap } from './type.ts'
 import { turnService } from '../turn/turnService.ts'
 import { defCreature } from './constants.ts'
+import { makePersistable } from 'mobx-persist-store'
 
 class CreatureService {
   constructor () {
@@ -19,6 +20,8 @@ class CreatureService {
       updatePlayer: action,
       updateEnemy: action
     })
+
+    makePersistable(this, { name: 'CreatureService', properties: ['playersMap', 'enemyMap'], storage: window.localStorage})
   }
 
   public playersMap: CreatureMap = {}
@@ -32,7 +35,7 @@ class CreatureService {
       ...defCreature,
       id,
       type: 'player',
-      name: 'Игорёк'
+      name: 'Игорёк',
     }
 
     this.playersMap[id] = player
@@ -46,7 +49,7 @@ class CreatureService {
       ...defCreature,
       id,
       type: 'monster',
-      name: 'Монстыр'
+      name: 'Монстыр',
     }
 
     this.enemyMap[id] = enemy

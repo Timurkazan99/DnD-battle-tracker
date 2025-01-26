@@ -1,4 +1,4 @@
-import { Creature } from './type.ts'
+import { Creature, Status } from './type.ts'
 
 export const defCreature: Omit<Creature, 'id' | 'type' | 'name'> = {
   STR: 0,
@@ -9,4 +9,5 @@ export const defCreature: Omit<Creature, 'id' | 'type' | 'name'> = {
   CHA: 0,
   AC: 10,
   speed: 30,
+  status: Status.LIVE
 }

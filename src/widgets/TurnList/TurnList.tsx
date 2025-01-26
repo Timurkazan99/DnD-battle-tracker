@@ -13,7 +13,7 @@ const _TurnList: FC = () => {
         <RoundCounter />
         <ScrollList>
           {
-            turnService.initiativeList
+            turnService.liveInitiativeList
             .map((item) => <TurnItem key={item.creatureId} {...item} />)
           }
         </ScrollList>

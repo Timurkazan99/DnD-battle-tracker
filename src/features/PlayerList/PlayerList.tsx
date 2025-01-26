@@ -61,10 +61,14 @@ const BasePlayerList: FC<Props> = ({ style }) => {
     creatureService.updatePlayer(id, entity)
   }
 
+  const deleteHandler = (id) => {
+    creatureService.deletePlayer(id)
+  }
+
   return (
-    <Wrapper style={style}>
+    <Wrapper style={{...style}}>
       <Header>Игроки</Header>
-      { playerList.map((creature) => <PlayerCard key={creature.id} {...creature} onChange={changeHandler}/>) }
+      { playerList.map((creature) => <PlayerCard key={creature.id} {...creature} onChange={changeHandler} onDeleteCreature={deleteHandler}/>) }
       {
         playerList.length < 6 ? (
           <ButtonWrapper>

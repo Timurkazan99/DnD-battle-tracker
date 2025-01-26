@@ -1,7 +1,8 @@
 import { action, computed, makeObservable, observable } from 'mobx'
-import { Creature } from '../creature/type.ts'
+import { Creature, Status } from '../creature/type.ts'
 import { InitiativeItem } from './type.ts'
 import { throwService } from '../throw/throwService.ts'
+import { makePersistable } from 'mobx-persist-store'
 
 class TurnService {
   constructor () {
@@ -12,24 +13,31 @@ class TurnService {
       nextTurn: action,
       prevTurn: action,
       initiativeList: observable,
+      liveInitiativeList: computed,
       setInitiative: action,
       throwInitiative: action,
       addInitiativeItem: action
     })
+
+    makePersistable(this, { name: 'TurnService', properties: ['round', 'turn', 'initiativeList'], storage: window.localStorage})
   }
 
   public round: number = 1
   public turn: number = 0
   public initiativeList: InitiativeItem[] = []
 
+  public get liveInitiativeList() {
+    return this.initiativeList?.filter(({ status }) => status === Status.LIVE )
+  }
+
   public get activeCreature() {
-    return this.initiativeList?.[this.turn]?.creatureId
+    return this.liveInitiativeList?.[this.turn]?.creatureId
   }
 
   public nextTurn () {
     const newTurn = this.turn + 1
 
-    if (this.initiativeList.length === newTurn) {
+    if (this.liveInitiativeList.length === newTurn) {
       this.turn = 0
       this.round += 1
     } else {
@@ -41,7 +49,7 @@ class TurnService {
     const newTurn = this.turn - 1
 
     if (-1 === newTurn) {
-      this.turn = this.initiativeList.length - 1
+      this.turn = this.liveInitiativeList.length - 1
       this.round -= 1
     } else {
       this.turn = newTurn
@@ -64,7 +72,8 @@ class TurnService {
       creatureId: item.id,
       name: item.name,
       modify: item.DEX,
-      value: 0
+      value: 0,
+      status: item.status
     }]
     this.sort()
   }
@@ -74,6 +83,11 @@ class TurnService {
     if (item) {
       entity.modify = item.DEX
       entity.name = item.name
+      entity.status = item.status
+
+      if(item.status === Status.DEAD && this.activeCreature === entity.creatureId) {
+        this.nextTurn()
+      }
     }
   }
 

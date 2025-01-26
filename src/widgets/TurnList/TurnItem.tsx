@@ -15,13 +15,15 @@ const BaseTurnItem: FC<InitiativeItem> = ({ creatureId, name, value}) => {
 
   useEffect(() => {
     turnService.setInitiative(creatureId, debouncedInitiative)
+
   }, [creatureId, debouncedInitiative])
 
-  console.log(value)
+  useEffect(() => {
+    setInitiative(value)
+  }, [value])
 
   useEffect(() => {
     if (turnService.activeCreature === creatureId && itemRef.current) {
-      console.log(itemRef?.current)
       itemRef?.current?.scrollIntoView({
         behavior: 'smooth',
       })

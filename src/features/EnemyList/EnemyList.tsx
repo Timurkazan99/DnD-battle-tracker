@@ -59,10 +59,14 @@ const BaseEnemyList: FC<Props> = ({ style }) => {
     creatureService.updateEnemy(id, entity)
   }
 
+  const deleteHandler = (id) => {
+    creatureService.deleteEnemy(id)
+  }
+
   return (
     <Wrapper style={style}>
       <Header>Монстры</Header>
-      { enemyList.map((creature) => <EnemyCard key={creature.id} {...creature} onChange={changeHandler}/>) }
+      { enemyList.map((creature) => <EnemyCard key={creature.id} {...creature} onChange={changeHandler} onDeleteCreature={deleteHandler}/>) }
       <ButtonWrapper>
         <AddButton onClick={ClickHandler}>
           +

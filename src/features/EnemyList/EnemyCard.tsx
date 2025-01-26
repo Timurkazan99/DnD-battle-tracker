@@ -14,17 +14,24 @@ const Wrapper = styled.div`
 
 interface Props extends Creature{
   onChange: UpdateCreature
+  onDeleteCreature: (id: Creature['id']) => void
 }
 
-const BaseEnemyCard: FC<Props> = ({ onChange,  ...creature}) => {
+const BaseEnemyCard: FC<Props> = ({ onChange, onDeleteCreature,  ...creature}) => {
   const [disable, setDisable] = useState(true)
 
   return (
-    <CreatureCard creature={creature} onChange={onChange} disable={disable} setDisable={setDisable}>
+    <CreatureCard
+      creature={creature}
+      onChange={onChange}
+      onDeleteCreature={onDeleteCreature}
+      disable={disable}
+      setDisable={setDisable}
+    >
       <Wrapper>
         <div style={{ flexBasis: '50%' }}>
-          <PramBlock {...creature} disable={disable}/>
-          <StatBlock {...creature} disable={disable}/>
+          <PramBlock {...creature} disable={disable} onChange={onChange}/>
+          <StatBlock {...creature} disable={disable} onChange={onChange} />
           <HealthList name={creature.name}/>
         </div>
         <SkillList/>

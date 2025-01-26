@@ -5,13 +5,20 @@ import { CreatureCard, PramBlock, StatBlock } from '../../widgets/CreatureCard'
 
 interface Props extends Creature{
   onChange: UpdateCreature
+  onDeleteCreature: (id: Creature['id']) => void
 }
 
-const BasePlayerCard: FC<Props> = ({ onChange,  ...creature}) => {
+const BasePlayerCard: FC<Props> = ({ onChange, onDeleteCreature,  ...creature}) => {
   const [disable, setDisable] = useState(true)
 
   return (
-    <CreatureCard creature={creature} onChange={onChange} disable={disable} setDisable={setDisable}>
+    <CreatureCard
+      creature={creature}
+      onChange={onChange}
+      disable={disable}
+      setDisable={setDisable}
+      onDeleteCreature={onDeleteCreature}
+    >
       <PramBlock {...creature} disable={disable}/>
       <StatBlock {...creature} disable={disable}/>
     </CreatureCard>

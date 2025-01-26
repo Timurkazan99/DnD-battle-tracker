@@ -15,11 +15,12 @@ import { Space } from 'antd'
 interface Props {
   creature: Creature
   onChange: UpdateCreature
+  onDeleteCreature: (id: Creature['id']) => void
   disable: boolean
   setDisable: Dispatch<boolean>
 }
 
-const BaseCreatureCard: FC<PropsWithChildren<Props>> = ({children, onChange, creature, disable, setDisable}) => {
+const BaseCreatureCard: FC<PropsWithChildren<Props>> = ({children, onChange, onDeleteCreature, creature, disable, setDisable}) => {
   const cardRef = useRef<HTMLDivElement>()
   const id = `${creature.id}-card`
 
@@ -53,13 +54,16 @@ const BaseCreatureCard: FC<PropsWithChildren<Props>> = ({children, onChange, cre
           />
         )}
         <CardExtra
-          type={creature.type}
           id={creature.id}
           onEdit={() => setDisable((prev) => !prev)}
+          onEditCreature={onChange}
+          onDeleteCreature={onDeleteCreature}
           disable={disable}
+          status={creature.status}
         />
       </Space.Compact>}
       active={creature.id === turnService.activeCreature}
+      status={creature.status}
     >
       {children}
     </Card>
